@@ -1,0 +1,23 @@
+# kazda linia zaczynajaca sie od # jest ignorowana
+# kolejnosc danych bedzie zawsze taka sama
+# liczba wezlow, wezly numerowane sa od 1
+WEZLY = 5
+# kazdy wezel to trojka (identyfikator, wspolrzedna X, wspolrzedna Y)
+1 10 50
+2 30 56
+3 45 32
+4 90 23
+5 44 33
+# liczba krawedzi
+LACZA = 10
+# kazde lacze to trojka (identyfikator, wezel poczatkowy, wezel koncowy)
+1 1 2
+2 2 3
+3 3 4
+4 4 5
+5 5 1
+6 1 3
+7 1 4
+8 2 3
+9 2 4
+10 2 5
