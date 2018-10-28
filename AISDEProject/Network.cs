@@ -5,7 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Msagl;
 using Microsoft.Msagl.Drawing;
+using Microsoft.Msagl.GraphViewerGdi;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace AISDEProject
 {
@@ -42,6 +46,41 @@ namespace AISDEProject
             {
                 Console.WriteLine(edge);
             }
+        }
+
+        public Graph CreateGraph()
+        {
+            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph();
+
+            foreach (var node in MyGraph.Nodes)
+            {
+                graph.AddNode(node.ID.ToString()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Yellow;
+            }
+
+            foreach (var edge in MyGraph.Edges)
+            {
+                var ed = graph.AddEdge(edge.Link.Begin.ToString(), edge.Weight.ToString("#.##"), edge.Link.End.ToString());
+                ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                ed.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
+
+            }
+
+            return graph;
+
+        }
+
+        public void ShowNodes()
+        {
+            Graph tmp = CreateGraph();
+
+            GraphRenderer graphRenderer = new GraphRenderer(tmp);
+
+            GraphRenderer renderer = new GraphRenderer(tmp);
+            renderer.CalculateLayout();
+            int width = 1000;
+            Bitmap bitmap = new Bitmap(width, (int)(tmp.Height * (width / tmp.Width)), PixelFormat.Format32bppPArgb);
+            renderer.Render(bitmap);
+            bitmap.Save("test.png");
         }
 
         public void ReadAndSave<T>(string line, List<T> t) where T : new()
@@ -212,7 +251,7 @@ namespace AISDEProject
                             end = Int32.Parse(stringBuilder.ToString());
                             j = 0;
                             stringBuilder.Clear();
-                            MyGraph.Edges.Add(new Edge(id, begin, end, WeightAsDistance(begin, end), Color.Black ));
+                            MyGraph.Edges.Add(new Edge(id, begin, end, WeightAsDistance(begin, end), Microsoft.Msagl.Drawing.Color.Black ));
                         }
 
                         sb.Clear();

@@ -34,12 +34,20 @@ namespace AISDEProject
             Y = 0;
         }
 
+        public Node(int id)
+        {
+            this.ID = id;
+            X = 0;
+            Y = 0;
+        }
+
         #endregion
 
         public override string ToString()
         {
             return $"ID: {ID} ; X: {X} ; Y: {Y}";
         }
+
 
     }
 }

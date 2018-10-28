@@ -7,13 +7,15 @@ using Microsoft.Msagl.Drawing;
 
 namespace AISDEProject
 {
-    class Edge : Link
+    class Edge
     {
         #region Public Default Properties
 
         public Link Link { get; set; }
         public double Weight { get; set; }
         public Color Color { get; set; }
+        //Add this prop to textfile
+        //public int IsDirected { get; set; }
 
         #endregion
 

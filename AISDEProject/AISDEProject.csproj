@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dijkstra.cs" />
     <Compile Include="Edge.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="MyGraph.cs" />
