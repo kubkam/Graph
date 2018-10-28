@@ -56,11 +56,13 @@ namespace AISDEProject
 
             Network network = new Network();
 
-            network.GraphFromFile(@"C:\Users\Kuba\Desktop\AIXDE\AISDEProject\AISDEProject\network.txt");
+            network.GraphFromFile(@"C:\Users\Kuba\Desktop\AIXDE\AISDEProject\network.txt");
 
             network.showNodes();
 
             network.showEdges();
+
+            network.ShowNodes();
 
             Console.WriteLine("End");
 

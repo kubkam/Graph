@@ -7,7 +7,7 @@ using Microsoft.Msagl.Drawing;
 
 namespace AISDEProject
 {
-    class Edge : Link
+    class Edge
     {
         #region Public Default Properties
 
