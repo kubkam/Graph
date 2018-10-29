@@ -11,11 +11,21 @@ namespace AISDEProject
     {
         #region Public Default Properties
 
-        public Link Link { get; set; }
-        public double Weight { get; set; }
+        public int ID { get; set; }
+        public Node Begin { get; set; }
+        public Node End { get; set; }
+
         public Color Color { get; set; }
         //Add this prop to textfile
         //public int IsDirected { get; set; }
+
+        #endregion
+
+
+        #region Public Full Property
+
+        static public double Weight(Node node1, Node node2) => (double)Math.Sqrt(Math.Pow(Math.Abs(node1.X - node2.X), 2) + Math.Pow(Math.Abs(node1.Y - node2.Y), 2));
+
 
         #endregion
 
@@ -23,31 +33,28 @@ namespace AISDEProject
 
         public Edge()
         {
-            Link = new Link();
-            Weight = 0.0;
+            Begin = new Node();
+            End = new Node();
             Color = Color.Black;
         }
 
         public Edge(double weight, Color color)
         {
-            Link = new Link();
-            Weight = weight;
+            Begin = new Node();
+            End = new Node();
             Color = color;
         }
 
-        public Edge(int id, int begin, int end, double weight, Color color)
+        public Edge(int id, Node begin, Node end, double weight, Color color)
         {
-            Link = new Link(id, begin, end);
-            Weight = weight;
+            Begin = begin;
+            End = end;
             Color = color;
         }
 
         #endregion
 
-        public override string ToString()
-        {
-            return $"{Link} ; Weight: {Weight.ToString("0.00")} ; Color: {Color}";
-        }
+        public override string ToString() => $"Begin Node:\n{Begin}\n End Node:\n{End}\n ; Weight: {Weight(Begin, End).ToString("0.00")} ; Color: {Color}";
 
     }
 }

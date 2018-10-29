@@ -30,8 +30,8 @@ namespace AISDEProject
 
         #endregion
 
-        public double WeightAsDistance(int x, int y) => Math.Sqrt(Math.Pow((double)x, 2) + Math.Pow((double)y, 2));
-
+        //temp methods
+        /*
         public void showNodes()
         {
             foreach (var node in MyGraph.Nodes)
@@ -47,78 +47,7 @@ namespace AISDEProject
                 Console.WriteLine(edge);
             }
         }
-
-        public Graph CreateGraph()
-        {
-            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph();
-
-            foreach (var node in MyGraph.Nodes)
-            {
-                graph.AddNode(node.ID.ToString()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Yellow;
-            }
-
-            foreach (var edge in MyGraph.Edges)
-            {
-                var ed = graph.AddEdge(edge.Link.Begin.ToString(), edge.Weight.ToString("#.##"), edge.Link.End.ToString());
-                ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
-                ed.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
-
-            }
-
-            return graph;
-
-        }
-
-        public void ShowNodes()
-        {
-            Graph tmp = CreateGraph();
-
-            GraphRenderer graphRenderer = new GraphRenderer(tmp);
-
-            GraphRenderer renderer = new GraphRenderer(tmp);
-            renderer.CalculateLayout();
-            int width = 1000;
-            Bitmap bitmap = new Bitmap(width, (int)(tmp.Height * (width / tmp.Width)), PixelFormat.Format32bppPArgb);
-            renderer.Render(bitmap);
-            bitmap.Save("test.png");
-        }
-
-        public void ReadAndSave<T>(string line, List<T> t) where T : new()
-        {
-            int id = 0, x = 0, y = 0;
-            
-            int j = 0, count = 0;
-            StringBuilder stringBuilder = new StringBuilder();
-            //add number of Edges to variable
-            for (int i = 0; i < line.Length; i++)
-            {
-                if (line[i] != ' ')
-                {
-                    stringBuilder.Append(line[i]);
-                    j++;
-                }
-                else
-                {
-                    if (count == 0)
-                    {
-
-                        id = Int32.Parse(stringBuilder.ToString());
-                        j = 0;
-                        stringBuilder.Clear();
-                    }
-                    else if (count == 1)
-                    {
-                        x = Int32.Parse(stringBuilder.ToString());
-                        j = 0;
-                        stringBuilder.Clear();
-                    }
-                    count++;
-                }
-            }
-            y = Int32.Parse(stringBuilder.ToString());
-            j = 0;
-            stringBuilder.Clear();
-        }
+        */
 
         public void GraphFromFile(string Path)
         {
@@ -251,12 +180,15 @@ namespace AISDEProject
                             end = Int32.Parse(stringBuilder.ToString());
                             j = 0;
                             stringBuilder.Clear();
-                            MyGraph.Edges.Add(new Edge(id, begin, end, WeightAsDistance(begin, end), Microsoft.Msagl.Drawing.Color.Black ));
+
+                            Node tmp1 = MyGraph.Nodes.Find(x => x.ID == begin);
+                            Node tmp2 = MyGraph.Nodes.Find(x => x.ID == end);
+
+                            MyGraph.Edges.Add(new Edge(id, tmp1, tmp2, Edge.Weight(tmp1, tmp2), Microsoft.Msagl.Drawing.Color.Black ));
                         }
 
                         sb.Clear();
-                    }
-                    
+                    }  
                 }
             }
             catch (Exception e)

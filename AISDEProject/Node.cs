@@ -43,11 +43,6 @@ namespace AISDEProject
 
         #endregion
 
-        public override string ToString()
-        {
-            return $"ID: {ID} ; X: {X} ; Y: {Y}";
-        }
-
-
+        public override string ToString() => $"ID: {ID} ; X: {X} ; Y: {Y}";
     }
 }
