@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Msagl.Drawing;
+using Microsoft.Msagl.GraphViewerGdi;
 
 namespace AISDEProject
 {
@@ -14,6 +16,10 @@ namespace AISDEProject
         public int X { get; set; }
         public int Y { get; set; }
         //public int IsObligatory { get; set; }
+        public double Label { get; set; }
+        public List<Node> PrevNodes { get; set; }
+
+        public double Weight(Node End) => (double)Math.Sqrt(Math.Pow(Math.Abs(this.X - End.X), 2) + Math.Pow(Math.Abs(this.Y - End.Y), 2));
 
         #endregion
 
@@ -44,5 +50,7 @@ namespace AISDEProject
         #endregion
 
         public override string ToString() => $"ID: {ID} ; X: {X} ; Y: {Y}";
+
+
     }
 }

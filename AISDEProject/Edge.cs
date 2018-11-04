@@ -7,7 +7,7 @@ using Microsoft.Msagl.Drawing;
 
 namespace AISDEProject
 {
-    class Edge
+    public class Edge
     {
         #region Public Default Properties
 
@@ -20,7 +20,6 @@ namespace AISDEProject
         //public int IsDirected { get; set; }
 
         #endregion
-
 
         #region Public Full Property
 

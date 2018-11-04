@@ -56,9 +56,11 @@
   <ItemGroup>
     <Compile Include="Dijkstra.cs" />
     <Compile Include="Edge.cs" />
+    <Compile Include="Kruskal.cs" />
     <Compile Include="MyGraph.cs" />
     <Compile Include="Network.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="Prim.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
