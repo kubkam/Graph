@@ -16,44 +16,30 @@ namespace AISDEProject
     {
         static void Main(string[] args)
         {
-
-            //If u want to use it, uncomment these methods in Network Class
-            /*
-            network.showNodes();
-
-            network.showEdges();
-            */
-
             
-            //MyGraph myGraph = new MyGraph();
+            MyGraph myGraph = new MyGraph();
+            myGraph.GraphFromFile(Global.PATH);
+            //myGraph.CreateGraph();
 
-            //myGraph.GraphFromFile(Global.PATH);
-            //myGraph.CreateGraph(myGraph.Nodes, myGraph.Edges);
-            //myGraph.SaveGraphAsImage("test.png");
+            //myGraph.SaveGraphAsImage("network.jpg");
             
+            
+            Prim prim = new Prim();
+            
+            //prim.MyGraph.GraphFromFile(Global.PATH);
 
-            //Dijkstra dijkstra = new Dijkstra();
+            prim.AlgoPrim();
 
-            //dijkstra.Algorithm();
+            prim.CreateGraph(prim.PrimNodes, prim.PrimEdges);
+            //prim.CreateGraph(myGraph.Nodes, myGraph.Edges);
 
-            Dijkstra dijkstra = new Dijkstra();
-
-            //dijkstra.MyGraph.GraphFromFile(Global.PATH);
-
-            Console.WriteLine("Enter Node ID: ");
-            int nodeID = Convert.ToInt32(Console.ReadLine());
-            Console.ReadKey();
-
-            Node node = new Node();
-            //dijkstra.MyGraph.GraphFromFile(Global.PATH);
-            node = dijkstra.MyGraph.Nodes.First(x => x.ID == nodeID);
-
-            //dijkstra.MyGraph.CreateGraph(dijkstra.Nodes, dijkstra.Edges);
-            dijkstra.MyGraph.SaveGraphAsImage("dijkstra.png", dijkstra.PrevNodes(node), dijkstra.Edges);
+            prim.SaveGraphAsImage("prim.jpg", prim.PrimNodes, prim.PrimEdges);
+            //prim.SaveGraphAsImage("prim.jpg", myGraph.Nodes, myGraph.Edges);
 
             Console.WriteLine("End");
 
             Console.ReadKey();
+            
         }
     }
 }

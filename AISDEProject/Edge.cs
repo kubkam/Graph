@@ -21,12 +21,7 @@ namespace AISDEProject
 
         #endregion
 
-        #region Public Full Property
-
         static public double Weight(Node node1, Node node2) => (double)Math.Sqrt(Math.Pow(Math.Abs(node1.X - node2.X), 2) + Math.Pow(Math.Abs(node1.Y - node2.Y), 2));
-
-
-        #endregion
 
         #region Contructiors
 

@@ -39,27 +39,5 @@ namespace AISDEProject
             return Nodes;
         }
 
-
-        public void Algorithm(Node source)
-        {
-            int startID = 1;
-            foreach (var node in MyGraph.Nodes)
-            {
-                node.Label = (double)int.MaxValue;
-                node.PrevNodes = null;
-                Nodes.Add(node);
-            }
-
-            source.Label = 0;
-            Nodes.OrderBy(x => x.Label);
-
-            while (Nodes != null)
-            {
-                var Start = MyGraph.Nodes.Find(x => x.ID == startID);
-
-                Nodes.Remove(Start);
-            }
-
-        }
     }
 }

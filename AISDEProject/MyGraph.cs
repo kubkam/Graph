@@ -14,7 +14,7 @@ namespace AISDEProject
 {
     static class Global
     {
-        public static string PATH = @"C:\Users\Kuba\Desktop\AIXDE\AISDEProject\AISDEProject\network.txt";
+        public static string PATH = @"C:\Users\Kuba\Desktop\New folder (6)\Graph-master\AISDEProject\network.txt";
     }
 
     class MyGraph
@@ -45,8 +45,8 @@ namespace AISDEProject
         #endregion
 
         public override string ToString() => $"Nodes: {Nodes}\n Edges: {Edges}";
-
-        public Graph CreateGraph(List<Node> Nodes, List<Edge> Edges)
+        
+        public Graph CreateGraph()
         {
             Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph();
 
@@ -69,23 +69,9 @@ namespace AISDEProject
             return graph;
         }
 
-        public void SaveGraphAsImage(string path, List<Node> nodes, List<Edge> edges)
-        {
-            Graph tmp = CreateGraph(nodes, edges);
-
-            GraphRenderer graphRenderer = new GraphRenderer(tmp);
-
-            GraphRenderer renderer = new GraphRenderer(tmp);
-            renderer.CalculateLayout();
-            int width = 1000;
-            Bitmap bitmap = new Bitmap(width, (int)(tmp.Height * (width / tmp.Width)), PixelFormat.Format32bppPArgb);
-            renderer.Render(bitmap);
-            bitmap.Save(path);
-        }
-
         public void SaveGraphAsImage(string path)
         {
-            Graph tmp = CreateGraph(Nodes, Edges);
+            Graph tmp = CreateGraph();
 
             GraphRenderer graphRenderer = new GraphRenderer(tmp);
 
