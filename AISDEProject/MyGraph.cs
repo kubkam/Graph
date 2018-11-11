@@ -61,7 +61,7 @@ namespace AISDEProject
                     Edge.Weight(edge.Begin, edge.End).ToString("#.00"),
                     edge.End.ID.ToString());
 
-                ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Black;
                 ed.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
 
             }

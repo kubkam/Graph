@@ -17,6 +17,7 @@ namespace AISDEProject
         public int Y { get; set; }
         //public int IsObligatory { get; set; }
         public double Label { get; set; }
+        public int IDOfClosetNode { get; set; }
 
 
         #endregion
@@ -45,6 +46,15 @@ namespace AISDEProject
             this.ID = id;
             X = 0;
             Y = 0;
+        }
+
+        public Node(Node node)
+        {
+            node.ID = this.ID;
+            node.X = this.X;
+            node.Y = this.Y;
+            node.IDOfClosetNode = this.IDOfClosetNode;
+            node.Label = this.Label;
         }
 
         #endregion

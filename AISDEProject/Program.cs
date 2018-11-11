@@ -25,10 +25,15 @@ namespace AISDEProject
 
 
             Dijkstra dijkstra = new Dijkstra();
+            dijkstra.DijkstraAlgo();
+
+            dijkstra.CreateGraph();
+
+            dijkstra.SaveGraphAsImage("dijkstra.jpg");
 
             //dijkstra.MyGraph.GraphFromFile(Global.PATH);
 
-            dijkstra.TestLabel();
+            //dijkstra.TestLabel();
             
             /*
             Prim prim = new Prim();
