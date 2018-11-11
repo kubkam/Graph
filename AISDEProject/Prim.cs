@@ -24,16 +24,14 @@ namespace AISDEProject
         public List<Node> PrimNodes { get; set; }
 
 
-
         public Prim()
         {
             MyGraph = new MyGraph();
             MyGraph.GraphFromFile(Global.PATH);
 
-            Nodes = new List<Node>();
-            Nodes = MyGraph.Nodes;
-            Edges = new List<Edge>();
-            Edges = MyGraph.Edges;
+            Nodes = new List<Node>(MyGraph.Nodes);
+ 
+            Edges = new List<Edge>(MyGraph.Edges);
         }
 
         public List<Node> Neighbors(Node node)
@@ -156,7 +154,16 @@ namespace AISDEProject
                     ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Black;
 
                 ed.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
+            }
 
+            foreach (var edge in PrimEdges)
+            {
+                var ed = graph.AddEdge(edge.Begin.ID.ToString(),
+                    Edge.Weight(edge.Begin, edge.End).ToString("#.00"),
+                    edge.End.ID.ToString());
+
+                ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                ed.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
             }
 
             return graph;

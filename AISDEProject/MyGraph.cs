@@ -14,7 +14,7 @@ namespace AISDEProject
 {
     static class Global
     {
-        public static string PATH = @"C:\Users\Kuba\Desktop\New folder (6)\Graph-master\AISDEProject\network.txt";
+        public static string PATH = @"C:\Users\Kuba\Desktop\AIXDE\AISDEProject\AISDEProject\network.txt";
     }
 
     class MyGraph

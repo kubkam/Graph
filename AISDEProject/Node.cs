@@ -16,6 +16,8 @@ namespace AISDEProject
         public int X { get; set; }
         public int Y { get; set; }
         //public int IsObligatory { get; set; }
+        public double Label { get; set; }
+
 
         #endregion
 

@@ -19,22 +19,31 @@ namespace AISDEProject
             
             MyGraph myGraph = new MyGraph();
             myGraph.GraphFromFile(Global.PATH);
-            //myGraph.CreateGraph();
+            myGraph.CreateGraph();
 
-            //myGraph.SaveGraphAsImage("network.jpg");
+            myGraph.SaveGraphAsImage("network.jpg");
+
+
+            Dijkstra dijkstra = new Dijkstra();
+
+            //dijkstra.MyGraph.GraphFromFile(Global.PATH);
+
+            dijkstra.TestLabel();
             
-            
+            /*
             Prim prim = new Prim();
             
             //prim.MyGraph.GraphFromFile(Global.PATH);
 
             prim.AlgoPrim();
 
-            prim.CreateGraph(prim.PrimNodes, prim.PrimEdges);
-            //prim.CreateGraph(myGraph.Nodes, myGraph.Edges);
+            //prim.CreateGraph(prim.PrimNodes, prim.PrimEdges);
+            prim.CreateGraph(myGraph.Nodes, myGraph.Edges);
 
-            prim.SaveGraphAsImage("prim.jpg", prim.PrimNodes, prim.PrimEdges);
-            //prim.SaveGraphAsImage("prim.jpg", myGraph.Nodes, myGraph.Edges);
+            //prim.SaveGraphAsImage("prim.jpg", prim.PrimNodes, prim.PrimEdges);
+            prim.SaveGraphAsImage("prim.jpg", myGraph.Nodes, myGraph.Edges);
+
+            */
 
             Console.WriteLine("End");
 
