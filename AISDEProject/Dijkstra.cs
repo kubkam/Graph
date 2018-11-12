@@ -37,18 +37,15 @@ namespace AISDEProject
         public List<Node> NeighborsNodes(Node node)
         {
             Neighbours = new List<Node>();
-            //DijkstraEdges = new List<Edge>();
             foreach (var edge in Edges)
             {
                 if (edge.Begin == node && Nodes.Contains(edge.End))
                 {
                     Neighbours.Add(edge.End);
-                    //DijkstraEdges.Add(edge);
                 }
                 if (edge.End == node && Nodes.Contains(edge.Begin))
                 {
                     Neighbours.Add(edge.Begin);
-                    //DijkstraEdges.Add(edge);
                 }
             }
             Neighbours.Remove(node);
@@ -133,7 +130,7 @@ namespace AISDEProject
                 GetShortestPath(node);
             }
 
-            End = MyGraph.Nodes.First(x => x.ID == 6);
+            End = MyGraph.Nodes.First(x => x.ID == 9);
             Node tmp = new Node();
             tmp = End;
             int count = 1;
@@ -191,18 +188,6 @@ namespace AISDEProject
 
                 ed.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
             }
-
-            /*
-            foreach (var edge in DijkstraEdges)
-            {
-                var ed = graph.AddEdge(edge.Begin.ID.ToString(),
-                    Edge.Weight(edge.Begin, edge.End).ToString("#.00"),
-                    edge.End.ID.ToString());
-
-                ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
-                ed.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
-            }
-            */
 
             return graph;
         }
