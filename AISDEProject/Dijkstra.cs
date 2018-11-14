@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Msagl;
 using Microsoft.Msagl.Drawing;
 using Microsoft.Msagl.GraphViewerGdi;
 using System.Drawing;
@@ -19,20 +16,23 @@ namespace AISDEProject
         public List<Edge> Edges { get; set; }
         public Node Start { get; set; } = new Node();
         public Node End { get; set; } = new Node();
-        public List<Node> Neighbours { get; set; }
+        public List<Node> Neighbours { get; set; } = new List<Node>();
         public List<Edge> DijkstraEdges { get; set; } = new List<Edge>();
-
 
         public Dijkstra()
         {
             MyGraph = new MyGraph();
-            MyGraph.GraphFromFile(Global.PATH);
 
             Nodes = new List<Node>(MyGraph.Nodes);
-
             Edges = new List<Edge>(MyGraph.Edges);
         }
 
+        public Dijkstra(MyGraph myGraph)
+        {
+            MyGraph = myGraph;
+            Nodes = new List<Node>(myGraph.Nodes);
+            Edges = new List<Edge>(myGraph.Edges);
+        }
 
         public List<Node> NeighborsNodes(Node node)
         {
@@ -52,17 +52,14 @@ namespace AISDEProject
 
             return Neighbours;
         }
-        
+
         public void GetShortestPath(Node node)
         {
 
-            var neighs = NeighborsNodes(node);
-
-            if (neighs.Count == 0)
+            if (Neighbours.Count == 0)
                 return;
 
-
-            foreach (var neigh in neighs)
+            foreach (var neigh in NeighborsNodes(node))
             {
                 if (neigh.Label > node.Label + neigh.Weight(node))
                 {
@@ -77,65 +74,50 @@ namespace AISDEProject
 
         }
 
-        public void TestLabel()
+        public void DijkstraAlgo(Node startNode, Node endNode)
         {
-            Start = MyGraph.Nodes.First(x => x.ID == 1);
-
-            foreach (var node in Nodes)
-            {
-                if (node == Start)
-                {
-                    node.Label = 0.0;
-                    node.IDOfClosetNode = 1;
-                }
-                else
-                {
-                    node.Label = (double)Int32.MaxValue;
-                    node.IDOfClosetNode = 0;
-                }
-                    
-            }
-
-            foreach (var node in MyGraph.Nodes)
-            {
-                GetShortestPath(node);
-            }
-
-            foreach (var node in MyGraph.Nodes)
-            {
-                Console.WriteLine($"ID: {node.ID} ; Label: {node.Label.ToString("0.00")}   ;   Closet Node: {node.IDOfClosetNode}\n");
-            }
-        }
-
-        public void DijkstraAlgo()
-        {
-            Start = MyGraph.Nodes.First(x => x.ID == 1);
-            foreach (var node in Nodes)
-            {
-                if (node == Start)
-                {
-                    node.Label = 0.0;
-                    node.IDOfClosetNode = 1;
-                }
-                else
-                {
-                    node.Label = (double)Int32.MaxValue;
-                    node.IDOfClosetNode = 0;
-                }
-
-            }
-
-            foreach (var node in MyGraph.Nodes)
-            {
-                GetShortestPath(node);
-            }
-
-            End = MyGraph.Nodes.First(x => x.ID == 9);
-            Node tmp = new Node();
-            tmp = End;
-            int count = 1;
             var prioQueue = new List<Node>();
-            prioQueue.Add(tmp);
+
+            foreach (var node in MyGraph.Nodes)
+            {
+                if (node == startNode)
+                {
+                    node.Label = 0.0;
+                    node.IDOfClosetNode = node.ID;
+                }
+                else
+                {
+                    node.Label = (double)Int32.MaxValue;
+                    node.IDOfClosetNode = 0;
+                }
+
+            }
+
+            prioQueue.Add(startNode);
+            do
+            {
+
+                Node next = prioQueue.First();
+
+                foreach (var node in NeighborsNodes(next))
+                {
+                    prioQueue.Add(node);
+                }
+
+                foreach (var node in prioQueue)
+                {
+                    GetShortestPath(node);
+                }
+
+                prioQueue.Remove(next);
+
+            } while (Nodes.Count() != 0 && prioQueue.Count() != 0);
+
+            Node tmp = new Node();
+            tmp = endNode;
+            int count = 1;
+            var Visited = new List<Node>();
+            Visited.Add(tmp);
 
             do
             {
@@ -143,17 +125,15 @@ namespace AISDEProject
                 {
                     if (node.ID == tmp.IDOfClosetNode)
                     {
-                        prioQueue.Add(node);
+                        Visited.Add(node);
                         var edge = MyGraph.Edges.First(x => (x.Begin == tmp && x.End == node) || (x.End == tmp && x.Begin == node));
                         DijkstraEdges.Add(edge);
                         tmp = node;
-                        
+
                         count++;
                     }
                 }
-                
-
-            } while (tmp.ID != 1);
+            } while (tmp.ID != startNode.ID);
 
             foreach (var edge in MyGraph.Edges)
             {
@@ -161,52 +141,68 @@ namespace AISDEProject
                     edge.Color = Microsoft.Msagl.Drawing.Color.Red;
             }
 
-
         }
 
-
-        public Graph CreateGraph()
+        public void DijkstraMenu()
         {
-            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph();
+            int start = 0, end = 0;
+            List<int> availableNodes = new List<int>();
 
+            if (MyGraph.Nodes.Count == 0 || MyGraph.Nodes == null || MyGraph.Edges.Count == 0 || MyGraph.Edges == null)
+            {
+                Console.WriteLine("Something went wrong with reading from file.\nTry upload your file one more time.\nI returned you to main menu.\n");
+                return;
+            }
+            Console.WriteLine("Available Nodes:\n");
             foreach (var node in MyGraph.Nodes)
             {
-                graph.AddNode(node.ID.ToString()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Yellow;
-            }
+                Console.Write($"{node.ID}\t");
+                availableNodes.Add(node.ID);
 
-            foreach (var edge in MyGraph.Edges)
+            }
+            Console.WriteLine("\nNow you must enter 2 numbers, which are IDs of Nodes. You cannot enter twice the same Node, because there is no track between same Node\n");
+
+            do
             {
-                var ed = graph.AddEdge(edge.Begin.ID.ToString(),
-                    Edge.Weight(edge.Begin, edge.End).ToString("#.00"),
-                    edge.End.ID.ToString());
+                Console.WriteLine("Enter ID of Start Node: ");
+                try
+                {
+                    start = int.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
 
+                    Console.WriteLine(e.Message);
+                }
 
-                if (DijkstraEdges.Exists(x => x.Color == edge.Color))
-                    ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
-                else
-                    ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Black;
+            } while (!availableNodes.Contains(start));
 
-                ed.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
-            }
+            Start = MyGraph.Nodes.First(x => x.ID == start);
 
-            return graph;
+            availableNodes.Remove(start);
+
+            do
+            {
+                Console.WriteLine("Enter ID of End Node: ");
+                try
+                {
+                    end = int.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+
+                    Console.WriteLine(e.Message);
+                }
+
+            } while (!availableNodes.Contains(end));
+
+            End = MyGraph.Nodes.First(x => x.ID == end);
+
+            DijkstraAlgo(Start, End);
+
+            MyGraph.GraphMenu("Dijkstra", DijkstraEdges);
+
         }
-
-        public void SaveGraphAsImage(string path)
-        {
-            Graph tmp = CreateGraph();
-
-            GraphRenderer graphRenderer = new GraphRenderer(tmp);
-
-            GraphRenderer renderer = new GraphRenderer(tmp);
-            renderer.CalculateLayout();
-            int width = 1000;
-            Bitmap bitmap = new Bitmap(width, (int)(tmp.Height * (width / tmp.Width)), PixelFormat.Format32bppPArgb);
-            renderer.Render(bitmap);
-            bitmap.Save(path);
-        }
-
-
 
     }
 }

@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Dijkstra.cs" />
     <Compile Include="Edge.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="MyGraph.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Prim.cs" />
