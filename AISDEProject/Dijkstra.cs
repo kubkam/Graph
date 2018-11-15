@@ -55,7 +55,6 @@ namespace AISDEProject
 
         public void GetShortestPath(Node node)
         {
-
             if (Neighbours.Count == 0)
                 return;
 
@@ -65,13 +64,9 @@ namespace AISDEProject
                 {
                     neigh.Label = node.Label + neigh.Weight(node);
                     neigh.IDOfClosetNode = node.ID;
-
                 }
-
             }
-
             Nodes.Remove(node);
-
         }
 
         public void DijkstraAlgo(Node startNode, Node endNode)
@@ -90,13 +85,11 @@ namespace AISDEProject
                     node.Label = (double)Int32.MaxValue;
                     node.IDOfClosetNode = 0;
                 }
-
             }
 
             prioQueue.Add(startNode);
             do
             {
-
                 Node next = prioQueue.First();
 
                 foreach (var node in NeighborsNodes(next))
@@ -140,7 +133,6 @@ namespace AISDEProject
                 if (DijkstraEdges.Contains(edge))
                     edge.Color = Microsoft.Msagl.Drawing.Color.Red;
             }
-
         }
 
         public void DijkstraMenu()
@@ -158,7 +150,6 @@ namespace AISDEProject
             {
                 Console.Write($"{node.ID}\t");
                 availableNodes.Add(node.ID);
-
             }
             Console.WriteLine("\nNow you must enter 2 numbers, which are IDs of Nodes. You cannot enter twice the same Node, because there is no track between same Node\n");
 
@@ -203,6 +194,5 @@ namespace AISDEProject
             MyGraph.GraphMenu("Dijkstra", DijkstraEdges);
 
         }
-
     }
 }

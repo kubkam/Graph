@@ -26,7 +26,6 @@ namespace AISDEProject
             //Prim = new Prim();
         }
 
-
         public void ContextMenu()
         {
             Console.WriteLine(@"Welcome to our project :)");
@@ -68,7 +67,9 @@ namespace AISDEProject
                         break;
 
                     case 4:
-                        Console.WriteLine("Here will be Prim menu");
+                        Console.Clear();
+                        Prim = new Prim(MyGraph);
+                        Prim.PrimMenu();
                         break;
 
                     case 0:
@@ -78,7 +79,6 @@ namespace AISDEProject
                     default:
                         Console.Clear();
                         Console.WriteLine("Wrong option.\n");
-                        
                         break;
                 }
 

@@ -58,14 +58,14 @@ namespace AISDEProject
             return Edges.First(e => (e.Begin.Equals(node1) && e.End.Equals(node2)) || (e.Begin.Equals(node2) && e.End.Equals(node1)));
         }
 
-        public void PrimAlgo()
+        public void PrimAlgo(Node node)
         {
             var tree = new List<Node>();
             var queue = new List<Tuple<Node, Node, double>>();
 
             var neighbours = new Dictionary<Node, Node>();
 
-            var current = Nodes[0];
+            var current = node;
             var previous = current;
 
             tree.Add(current);
@@ -105,50 +105,35 @@ namespace AISDEProject
             {
                 if (PrimEdges.Contains(edge))
                     edge.Color = Microsoft.Msagl.Drawing.Color.Green;
-
             }
-
         }
 
-        public Graph CreateGraph()
+        public void PrimMenu()
         {
-            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph();
+            List<int> availableNodes = new List<int>();
+
+            if (MyGraph.Nodes.Count == 0 || MyGraph.Nodes == null || MyGraph.Edges.Count == 0 || MyGraph.Edges == null)
+            {
+                Console.WriteLine("Something went wrong with reading from file.\nTry upload your file one more time.\nI returned you to main menu.\n");
+                return;
+            }
 
             foreach (var node in MyGraph.Nodes)
             {
-                graph.AddNode(node.ID.ToString()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Yellow;
+                availableNodes.Add(node.ID);
             }
 
-            foreach (var edge in MyGraph.Edges)
-            {
-                var ed = graph.AddEdge(edge.Begin.ID.ToString(),
-                    Edge.Weight(edge.Begin, edge.End).ToString("#.00"),
-                    edge.End.ID.ToString());
+            Random rnd = new Random();
+            int RandomID = rnd.Next(1, availableNodes.Count);
 
+            Console.WriteLine($"Random ID: {RandomID}");
 
-                if (PrimEdges.Exists(x => x.Color == edge.Color))
-                    ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
-                else
-                    ed.Attr.Color = Microsoft.Msagl.Drawing.Color.Black;
+            Start = MyGraph.Nodes.First(x => x.ID == RandomID);
 
-                ed.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
-            }
+            PrimAlgo(Start);
 
-            return graph;
-        }
+            MyGraph.GraphMenu("Prim", PrimEdges);
 
-        public void SaveGraphAsImage(string path)
-        {
-            Graph tmp = CreateGraph();
-
-            GraphRenderer graphRenderer = new GraphRenderer(tmp);
-
-            GraphRenderer renderer = new GraphRenderer(tmp);
-            renderer.CalculateLayout();
-            int width = 1000;
-            Bitmap bitmap = new Bitmap(width, (int)(tmp.Height * (width / tmp.Width)), PixelFormat.Format32bppPArgb);
-            renderer.Render(bitmap);
-            bitmap.Save(path);
         }
     }
 
