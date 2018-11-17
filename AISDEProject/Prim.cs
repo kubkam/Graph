@@ -10,6 +10,8 @@ namespace AISDEProject
 {
     class Prim
     {
+        #region Properties
+
         public MyGraph MyGraph { get; set; }
         public List<Node> Nodes { get; set; }
         public List<Edge> Edges { get; set; }
@@ -18,6 +20,10 @@ namespace AISDEProject
         public List<Node> Neighbours { get; set; } = new List<Node>();
         public List<Edge> PrimEdges { get; set; } = new List<Edge>();
         public List<Node> MST { get; set; } = new List<Node>();
+
+        #endregion 
+
+        #region Constructors
 
         public Prim()
         {
@@ -33,6 +39,8 @@ namespace AISDEProject
             Nodes = new List<Node>(myGraph.Nodes);
             Edges = new List<Edge>(myGraph.Edges);
         }
+
+        #endregion
 
         public List<Node> NeighborsNodes(Node node)
         {
@@ -136,5 +144,4 @@ namespace AISDEProject
 
         }
     }
-
 }

@@ -15,9 +15,9 @@ namespace AISDEProject
         public Node Begin { get; set; }
         public Node End { get; set; }
 
+        public double Cost { get; set; }
+
         public Color Color { get; set; }
-        //Add this prop to textfile
-        //public int IsDirected { get; set; }
 
         #endregion
 
@@ -30,25 +30,19 @@ namespace AISDEProject
             Begin = new Node();
             End = new Node();
             Color = Color.Black;
+            Cost = 0.0;
         }
 
-        public Edge(double weight, Color color)
-        {
-            Begin = new Node();
-            End = new Node();
-            Color = color;
-        }
-
-        public Edge(int id, Node begin, Node end, double weight, Color color)
+        public Edge(int id, Node begin, Node end, Color color)
         {
             Begin = begin;
             End = end;
             Color = color;
+            Cost = begin.Weight(end);
         }
 
         #endregion
 
         public override string ToString() => $"Begin Node:\n{Begin}\n End Node:\n{End}\n ; Weight: {Weight(Begin, End).ToString("0.00")} ; Color: {Color}";
-
     }
 }

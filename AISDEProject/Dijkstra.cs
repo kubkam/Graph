@@ -8,23 +8,25 @@ using System.Drawing.Imaging;
 
 namespace AISDEProject
 {
-
     class Dijkstra
     {
+        #region Properties
+
         public MyGraph MyGraph { get; set; }
         public List<Node> Nodes { get; set; }
         public List<Edge> Edges { get; set; }
         public Node Start { get; set; } = new Node();
         public Node End { get; set; } = new Node();
-        public List<Node> Neighbours { get; set; } = new List<Node>();
-        public List<Edge> DijkstraEdges { get; set; } = new List<Edge>();
+        public List<Node> Neighbours { get; set; }
+        public List<Edge> DijkstraEdges { get; set; }
+
+        #endregion
+
+        #region Contructors
 
         public Dijkstra()
         {
             MyGraph = new MyGraph();
-
-            Nodes = new List<Node>(MyGraph.Nodes);
-            Edges = new List<Edge>(MyGraph.Edges);
         }
 
         public Dijkstra(MyGraph myGraph)
@@ -34,6 +36,8 @@ namespace AISDEProject
             Edges = new List<Edge>(myGraph.Edges);
         }
 
+        #endregion
+        
         public List<Node> NeighborsNodes(Node node)
         {
             Neighbours = new List<Node>();
@@ -60,9 +64,11 @@ namespace AISDEProject
 
             foreach (var neigh in NeighborsNodes(node))
             {
-                if (neigh.Label > node.Label + neigh.Weight(node))
+                var edge = MyGraph.Edges.First(x => (x.Begin.ID == neigh.ID && x.End.ID == node.ID) || (x.Begin.ID == node.ID && x.End.ID == neigh.ID));
+
+                if (neigh.Label > node.Label + edge.Cost)
                 {
-                    neigh.Label = node.Label + neigh.Weight(node);
+                    neigh.Label = node.Label + edge.Cost;
                     neigh.IDOfClosetNode = node.ID;
                 }
             }
@@ -71,6 +77,9 @@ namespace AISDEProject
 
         public void DijkstraAlgo(Node startNode, Node endNode)
         {
+            DijkstraEdges = new List<Edge>();
+            Nodes = new List<Node>(MyGraph.Nodes);
+
             var prioQueue = new List<Node>();
 
             foreach (var node in MyGraph.Nodes)
@@ -106,9 +115,7 @@ namespace AISDEProject
 
             } while (Nodes.Count() != 0 && prioQueue.Count() != 0);
 
-            Node tmp = new Node();
-            tmp = endNode;
-            int count = 1;
+            Node tmp = endNode;
             var Visited = new List<Node>();
             Visited.Add(tmp);
 
@@ -122,8 +129,6 @@ namespace AISDEProject
                         var edge = MyGraph.Edges.First(x => (x.Begin == tmp && x.End == node) || (x.End == tmp && x.Begin == node));
                         DijkstraEdges.Add(edge);
                         tmp = node;
-
-                        count++;
                     }
                 }
             } while (tmp.ID != startNode.ID);

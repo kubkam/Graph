@@ -15,7 +15,7 @@ namespace AISDEProject
 {
     static class Global
     {
-        public static string PATH = @"C:\Users\Kuba\Desktop\AIXDE\AISDEProject\AISDEProject\network.txt";
+        public static readonly string PATH = @"C:\Users\Kuba\Desktop\AIXDE\AISDEProject\AISDEProject\network.txt";
     }
 
     class MyGraph
@@ -31,11 +31,7 @@ namespace AISDEProject
 
         #region Constructors
 
-        public MyGraph()
-        {
-            //Nodes = new List<Node>();
-            //Edges = new List<Edge>();
-        }
+        public MyGraph() { }
 
         public MyGraph(List<Node> nodes, List<Edge> edges)
         {
@@ -59,7 +55,7 @@ namespace AISDEProject
             foreach (var edge in Edges)
             {
                 var ed = graph.AddEdge(edge.Begin.ID.ToString(),
-                    Edge.Weight(edge.Begin, edge.End).ToString("#.00"),
+                    edge.Cost.ToString("#.00"),
                     edge.End.ID.ToString());
 
                 if (edges == null)
@@ -109,136 +105,49 @@ namespace AISDEProject
                     //Make it better :)
                     while ((line = sr.ReadLine()) != null)
                     {
-                        StringBuilder sb = new StringBuilder();
-
                         if (line.StartsWith("#"))
                         {
                             continue;
                         }
                         else if (line.StartsWith("WEZLY"))
                         {
+                            string[] words = line.Split();
 
-                            int tmp = 0;
-                            for (int i = 0; i < line.Length; i++)
-                            {
-                                if (line[i] == ' ')
-                                {
-                                    tmp++;
-                                }
-                                if (tmp == 2)
-                                {
-                                    sb.Append(line[i]);
-                                }
-                            }
-                            int numberOfNodes = Int32.Parse(sb.ToString());
-                            NumberOfNodes = numberOfNodes;
+                            NumberOfNodes = int.Parse(words[2]);
 
-                            //Console.WriteLine($"Number of Nodes: {MyGraph.NumberOfNodes}");
                             flagNode = true;
                         }
                         else if (flagNode && (nodes < NumberOfNodes))
                         {
-                            int id = 0, x = 0, y = 0;
-                            int j = 0, count = 0;
-                            StringBuilder stringBuilder = new StringBuilder();
-                            for (int i = 0; i < line.Length; i++)
-                            {
-                                if (line[i] != ' ')
-                                {
-                                    stringBuilder.Append(line[i]);
-                                    j++;
-                                }
-                                else
-                                {
-                                    if (count == 0)
-                                    {
+                            string[] variables = line.Split();
 
-                                        id = Int32.Parse(stringBuilder.ToString());
-                                        j = 0;
-                                        stringBuilder.Clear();
-                                    }
-                                    else if (count == 1)
-                                    {
-                                        x = Int32.Parse(stringBuilder.ToString());
-                                        j = 0;
-                                        stringBuilder.Clear();
-                                    }
-                                    count++;
-                                }
-                            }
-                            y = Int32.Parse(stringBuilder.ToString());
-                            j = 0;
-                            stringBuilder.Clear();
-                            Nodes.Add(new Node() { ID = id, X = x, Y = y });
+                            Nodes.Add(new Node(int.Parse(variables[0]), int.Parse(variables[1]), int.Parse(variables[2])));
+
                             nodes++;
-
                         }
                         else if (line.StartsWith("LACZA"))
                         {
+                            string[] words = line.Split();
+
                             flagNode = false;
-                            int tmp = 0;
-                            for (int i = 0; i < line.Length; i++)
-                            {
-                                if (line[i] == ' ')
-                                {
-                                    tmp++;
-                                }
-                                if (tmp == 2)
-                                {
-                                    sb.Append(line[i]);
-                                }
-                            }
-                            int numberOfEdges = Int32.Parse(sb.ToString());
-                            NumberOfEdges = numberOfEdges;
+                            
+                            NumberOfEdges = int.Parse(words[2]);
 
                             flagEdge = true;
-                            //Console.WriteLine($"Number of Links: {MyGraph.NumberOfLinks}");
                         }
                         else if (flagEdge && (edges < NumberOfEdges))
                         {
-                            int id = 0, begin = 0, end = 0;
-                            int j = 0, count = 0;
-                            StringBuilder stringBuilder = new StringBuilder();
-                            //add number of Edges to variable
+                            string[] variables = line.Split();
 
-                            for (int i = 0; i < line.Length; i++)
-                            {
-                                if (line[i] != ' ')
-                                {
-                                    stringBuilder.Append(line[i]);
-                                    j++;
-                                }
-                                else
-                                {
-                                    if (count == 0)
-                                    {
+                            Node begin, end;
 
-                                        id = Int32.Parse(stringBuilder.ToString());
-                                        j = 0;
-                                        stringBuilder.Clear();
-                                    }
-                                    else if (count == 1)
-                                    {
-                                        begin = Int32.Parse(stringBuilder.ToString());
-                                        j = 0;
-                                        stringBuilder.Clear();
-                                    }
-                                    count++;
-                                }
-                            }
-                            end = Int32.Parse(stringBuilder.ToString());
-                            j = 0;
-                            stringBuilder.Clear();
+                            begin = Nodes.First(x => x.ID == int.Parse(variables[1]));
+                            end = Nodes.First(x => x.ID == int.Parse(variables[2]));
 
-                            Node tmp1 = Nodes.Find(x => x.ID == begin);
-                            Node tmp2 = Nodes.Find(x => x.ID == end);
+                            Edges.Add(new Edge(int.Parse(variables[0]), begin, end, Microsoft.Msagl.Drawing.Color.Black));
 
-
-                            Edges.Add(new Edge(id, tmp1, tmp2, Edge.Weight(tmp1, tmp2), Microsoft.Msagl.Drawing.Color.Black));
                             edges++;
                         }
-
-                        sb.Clear();
                     }
                 }
             }
