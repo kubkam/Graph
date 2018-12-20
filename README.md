@@ -1,4 +1,4 @@
-Graph Maker in C#
+Graph Generator in C#
 =================
 
 Student project for Algorithms & Data Structures. 
