@@ -1,4 +1,8 @@
-# Graph
-Student project
+Graph Maker in C#
+=================
 
-I am using https://github.com/Microsoft/automatic-graph-layout
+Student project for Algorithms & Data Structures. 
+
+### External libraries
+
+I am using [MSAGL](https://github.com/Microsoft/automatic-graph-layout).
