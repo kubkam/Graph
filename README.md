@@ -11,9 +11,6 @@ I am using [MSAGL](https://github.com/Microsoft/automatic-graph-layout).
 
 You need file like below
 
-    # every line started with # will be ignored
-    # Before adding new Nodes or Edges, you have to change number after =
-    # Nodes and Edges are enumerated from 1
     # number of Nodes
     Nodes = 4
     # every node is made of 3 different variables (id, X coordinate, Y coordinate)
@@ -31,4 +28,7 @@ You need file like below
     4 4 2
     5 1 3
 
-Every line with # will be ignored, so you can use it easly like // in C# to comment something. **Do not start ID of Nodes and Edges from 0. It's numbered from 1.** Number after = sign is the number of Nodes or Edges that graph contains.
+Every line with '#' sign will be ignored, so you can use it easly like // in C# to comment something. **Do not start ID of Nodes and Edges from 0. It's numbered from 1.** Number after '=' sign is the number of Nodes or Edges that graph contains.
+
+
+
