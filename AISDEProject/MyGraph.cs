@@ -13,36 +13,31 @@ using System.Text.RegularExpressions;
 
 namespace AISDEProject
 {
-    static class Global
-    {
-        public static readonly string PATH = @"C:\Users\Kuba\Desktop\AIXDE\AISDEProject\AISDEProject\network.txt";
-    }
-
     class MyGraph
     {
-        #region Public Default Properties
+        #region Public Properties
 
-        public List<Node> Nodes { get; set; } = new List<Node>();
-        public List<Edge> Edges { get; set; } = new List<Edge>();
+        public List<Node> Nodes { get; set; } 
+        public List<Edge> Edges { get; set; }
         public int NumberOfNodes { get; set; }
         public int NumberOfEdges { get; set; }
 
         #endregion
 
-        #region Constructors
+        #region Constructor
 
-        public MyGraph() { }
-
-        public MyGraph(List<Node> nodes, List<Edge> edges)
+        public MyGraph()
         {
-            Nodes = new List<Node>(nodes);
-            Edges = new List<Edge>(edges);  
+            Nodes = new List<Node>();
+            Edges = new List<Edge>();
+            NumberOfEdges = 0;
+            NumberOfNodes = 0;
         }
 
         #endregion
 
-        public override string ToString() => $"Nodes: {Nodes}\n Edges: {Edges}";
-        
+        #region Creating Graph from List of Edges
+
         public Graph CreateGraph(List<Edge> edges)
         {
             Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph();
@@ -76,6 +71,10 @@ namespace AISDEProject
             return graph;
         }
 
+        #endregion
+
+        #region Saving Graph as Image with given name as a parameter
+
         public void SaveGraphAsImage(string path, List<Edge> edges)
         {
             Graph tmp = CreateGraph(edges);
@@ -90,6 +89,10 @@ namespace AISDEProject
             bitmap.Save(path);
         }
 
+        #endregion
+
+        #region Reading Edges and Nodes from file to make Graph
+
         public void GraphFromFile(string Path)
         {
             try
@@ -101,15 +104,14 @@ namespace AISDEProject
                     int edges = 0;
                     int nodes = 0;
                     string line;
-
-                    //Make it better :)
+                    
                     while ((line = sr.ReadLine()) != null)
                     {
                         if (line.StartsWith("#"))
                         {
                             continue;
                         }
-                        else if (line.StartsWith("WEZLY"))
+                        else if (line.StartsWith("Nodes"))
                         {
                             string[] words = line.Split();
 
@@ -125,7 +127,7 @@ namespace AISDEProject
 
                             nodes++;
                         }
-                        else if (line.StartsWith("LACZA"))
+                        else if (line.StartsWith("Edges"))
                         {
                             string[] words = line.Split();
 
@@ -144,7 +146,7 @@ namespace AISDEProject
                             begin = Nodes.First(x => x.ID == int.Parse(variables[1]));
                             end = Nodes.First(x => x.ID == int.Parse(variables[2]));
 
-                            Edges.Add(new Edge(int.Parse(variables[0]), begin, end, Microsoft.Msagl.Drawing.Color.Black));
+                            Edges.Add(new Edge(int.Parse(variables[0]), begin, end));
 
                             edges++;
                         }
@@ -157,6 +159,10 @@ namespace AISDEProject
                 Console.WriteLine("Exception:" + e.Message);
             }
         }
+
+        #endregion
+
+        #region GraphMenu
 
         public void GraphMenu(string Name, List<Edge> edges)
         {
@@ -236,6 +242,10 @@ namespace AISDEProject
                 SaveGraphAsImage(fullpath, edges);
             }
         }
+
+        #endregion
+
+        public override string ToString() => $"Nodes: {Nodes}\n Edges: {Edges}";
 
         bool IsValidFilename(string testName)
         {

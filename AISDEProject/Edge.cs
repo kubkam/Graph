@@ -9,21 +9,18 @@ namespace AISDEProject
 {
     public class Edge
     {
-        #region Public Default Properties
-
         public int ID { get; set; }
         public Node Begin { get; set; }
         public Node End { get; set; }
 
+        //
+        // Summary:
+        //      Cost is calculated from coordinates X and Y of Begin and End Node.
+        //      See Weight method in Node class.
+        //
         public double Cost { get; set; }
 
         public Color Color { get; set; }
-
-        #endregion
-
-        static public double Weight(Node node1, Node node2) => (double)Math.Sqrt(Math.Pow(Math.Abs(node1.X - node2.X), 2) + Math.Pow(Math.Abs(node1.Y - node2.Y), 2));
-
-        #region Contructiors
 
         public Edge()
         {
@@ -33,16 +30,14 @@ namespace AISDEProject
             Cost = 0.0;
         }
 
-        public Edge(int id, Node begin, Node end, Color color)
+        public Edge(int id, Node begin, Node end)
         {
             Begin = begin;
             End = end;
-            Color = color;
+            Color = Color.Black;
             Cost = begin.Weight(end);
         }
 
-        #endregion
-
-        public override string ToString() => $"Begin Node:\n{Begin}\n End Node:\n{End}\n ; Weight: {Weight(Begin, End).ToString("0.00")} ; Color: {Color}";
+        public override string ToString() => $"Begin Node:\n{Begin}\n End Node:\n{End}\n ; Weight: {Cost.ToString("0.00")} ; Color: {Color}";
     }
 }

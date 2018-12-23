@@ -16,10 +16,7 @@ namespace AISDEProject
         public List<Node> Nodes { get; set; }
         public List<Edge> Edges { get; set; }
 
-        public Node Start { get; set; } = new Node();
-        public List<Node> Neighbours { get; set; } = new List<Node>();
-        public List<Edge> PrimEdges { get; set; } = new List<Edge>();
-        public List<Node> MST { get; set; } = new List<Node>();
+        public List<Edge> MST { get; set; }
 
         #endregion 
 
@@ -28,9 +25,8 @@ namespace AISDEProject
         public Prim()
         {
             MyGraph = new MyGraph();
-
-            Nodes = new List<Node>(MyGraph.Nodes);
-            Edges = new List<Edge>(MyGraph.Edges);
+            Nodes = new List<Node>();
+            Edges = new List<Edge>();
         }
 
         public Prim(MyGraph myGraph)
@@ -42,9 +38,23 @@ namespace AISDEProject
 
         #endregion
 
-        public List<Node> NeighborsNodes(Node node)
+        //
+        // Summary:
+        //      Searches the graph for neighbouring nodes.
+        //      When none are found, returns empty list.
+        //
+        // Parameters:
+        //   node:
+        //      The node to search its neighbouring nodes.
+        //
+        // Returns:
+        //      List of neighbouring nodes from node.
+        //
+        // Exceptions:
+        //      None.
+        public List<Node> NeighboursNodes(Node node)
         {
-            Neighbours = new List<Node>();
+            List<Node> Neighbours = new List<Node>();
             foreach (var edge in Edges)
             {
                 if (edge.Begin == node && Nodes.Contains(edge.End))
@@ -61,13 +71,38 @@ namespace AISDEProject
             return Neighbours;
         }
 
+        //
+        // Summary:
+        //      
+        //
+        // Parameters:
+        //   node1:
+        //      One of all available nodes from List of Nodes.
+        //
+        //   node2:
+        //      Second remaining node from List of Nodes.
+        //
+        // Returns:
+        //      The Edge which is one from following configuration node1->node2 or node2->node1.
+        //
+        // Exceptions:
+        //      None
         Edge GetEdge(Node node1, Node node2)
         {
             return Edges.First(e => (e.Begin.Equals(node1) && e.End.Equals(node2)) || (e.Begin.Equals(node2) && e.End.Equals(node1)));
         }
 
+        //
+        // Summary:
+        //      Using Prim algorithm searches MST (Minimum Spanning Tree).
+        //      For more just google Prim algorithm
+        //
+        // Parameters:
+        //   node:
+        //      The Node class object to start algorithm.
         public void PrimAlgo(Node node)
         {
+            MST = new List<Edge>();
             var tree = new List<Node>();
             var queue = new List<Tuple<Node, Node, double>>();
 
@@ -78,7 +113,7 @@ namespace AISDEProject
 
             tree.Add(current);
 
-            foreach (var neighbour in NeighborsNodes(current))
+            foreach (var neighbour in NeighboursNodes(current))
             {
                 queue.Add(new Tuple<Node, Node, double>(current, neighbour, current.Weight(neighbour)));
             }
@@ -97,12 +132,12 @@ namespace AISDEProject
 
                 queue.RemoveAll(n => n.Item2.Equals(current));
 
-                foreach (var neighbour in NeighborsNodes(current))
+                foreach (var neighbour in NeighboursNodes(current))
                 {
                     queue.Add(new Tuple<Node, Node, double>(current, neighbour, current.Weight(neighbour)));
                 }
 
-                PrimEdges.Add(GetEdge(current, neigh));
+                MST.Add(GetEdge(current, neigh));
                 previous = current;
 
                 tree.Add(current);
@@ -111,37 +146,34 @@ namespace AISDEProject
 
             foreach (var edge in MyGraph.Edges)
             {
-                if (PrimEdges.Contains(edge))
+                if (MST.Contains(edge))
                     edge.Color = Microsoft.Msagl.Drawing.Color.Green;
             }
         }
 
+        //
+        // Summary:
+        //     Initialize menu in console for generate result as image.
+        //      For more, go to GraphMenu method in Graph Class.
         public void PrimMenu()
         {
-            List<int> availableNodes = new List<int>();
-
             if (MyGraph.Nodes.Count == 0 || MyGraph.Nodes == null || MyGraph.Edges.Count == 0 || MyGraph.Edges == null)
             {
                 Console.WriteLine("Something went wrong with reading from file.\nTry upload your file one more time.\nI returned you to main menu.\n");
                 return;
             }
 
-            foreach (var node in MyGraph.Nodes)
-            {
-                availableNodes.Add(node.ID);
-            }
-
             Random rnd = new Random();
-            int RandomID = rnd.Next(1, availableNodes.Count);
 
-            Console.WriteLine($"Random ID: {RandomID}");
+            int RandomID = rnd.Next(1, MyGraph.Nodes.Count);
 
-            Start = MyGraph.Nodes.First(x => x.ID == RandomID);
+            Console.WriteLine($"Youe Random ID: {RandomID}");
+
+            Node Start = MyGraph.Nodes.First(x => x.ID == RandomID);
 
             PrimAlgo(Start);
 
-            MyGraph.GraphMenu("Prim", PrimEdges);
-
+            MyGraph.GraphMenu("Prim", MST);
         }
     }
 }

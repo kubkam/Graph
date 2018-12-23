@@ -21,7 +21,6 @@ C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Debug\Microsoft.Msagl.GraphViewerGd
 C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Debug\Microsoft.Msagl.xml
 C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Debug\Microsoft.Msagl.Drawing.xml
 C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Debug\Microsoft.Msagl.GraphViewerGdi.xml
-C:\Users\Kuba\Desktop\Graph\AISDEProject\obj\Debug\AISDEProject.csprojResolveAssemblyReference.cache
 C:\Users\Kuba\Desktop\Graph\AISDEProject\obj\Debug\AISDEProject.csproj.CoreCompileInputs.cache
 C:\Users\Kuba\Desktop\Graph\AISDEProject\obj\Debug\AISDEProject.exe
 C:\Users\Kuba\Desktop\Graph\AISDEProject\obj\Debug\AISDEProject.pdb
@@ -66,3 +65,5 @@ C:\Users\Kuba\Desktop\New folder (6)\Graph-master\AISDEProject\obj\Debug\AISDEPr
 C:\Users\Kuba\Desktop\New folder (6)\Graph-master\AISDEProject\obj\Debug\AISDEProject.csproj.CopyComplete
 C:\Users\Kuba\Desktop\New folder (6)\Graph-master\AISDEProject\obj\Debug\AISDEProject.exe
 C:\Users\Kuba\Desktop\New folder (6)\Graph-master\AISDEProject\obj\Debug\AISDEProject.pdb
+C:\Users\Kuba\Desktop\Graph\AISDEProject\obj\Debug\AISDEProject.csprojAssemblyReference.cache
+C:\Users\Kuba\Desktop\Graph\AISDEProject\obj\Debug\AISDEProject.csproj.CopyComplete

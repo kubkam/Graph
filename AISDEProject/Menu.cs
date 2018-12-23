@@ -27,7 +27,7 @@ namespace AISDEProject
 
         public Menu()
         {
-            MyGraph = new MyGraph();
+            //MyGraph = new MyGraph();
             //Dijkstra = new Dijkstra();
             //Prim = new Prim();
         }
@@ -60,6 +60,7 @@ namespace AISDEProject
                     case 1:
                         Console.WriteLine(@"Drag'n'Drop your file, paste full path of your file or write your filename, which is in bin\Debug folder of your project:");
                         string path = Console.ReadLine();
+                        MyGraph = new MyGraph();
                         MyGraph.GraphFromFile(path);
                         break;
 
