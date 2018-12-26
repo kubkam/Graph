@@ -10,10 +10,46 @@ namespace AISDEProject
 {
     public class Node
     {
+        //
+        // Summary:
+        //      Gets the number which represented node's ID.
+        //      It started from 1.
+        //
+        // Returns:
+        //      The number which represented node's ID.
         public int ID { get; set; }
+
+        //
+        // Summary:
+        //      Gets the number which represented node's X (coordinate X in Cartesian coordinate system).
+        //
+        // Returns:
+        //      The number which represented node's X.
         public int X { get; set; }
+
+        //
+        // Summary:
+        //      Gets the number which represented node's Y (coordinate Y in Cartesian coordinate system).
+        //
+        // Returns:
+        //      The number which represented node's Y.
         public int Y { get; set; }
+
+        //
+        // Summary:
+        //      Gets the number which represented Label.
+        //      It's an auxiliary variable which represented distance to particular Node
+        //
+        // Returns:
+        //      The number which represented Label, distance to particular Node.
         public double Label { get; set; }
+
+        //
+        // Summary:
+        //      Gets the number which represented ID of a closet available Node which is connected with Edge.
+        //
+        // Returns:
+        //      The number which represented ID of a closet available Node which is connected with Edge.
         public int IDOfClosetNode { get; set; }
         //public int IsObligatory { get; set; }
 
@@ -47,7 +83,5 @@ namespace AISDEProject
         // Exceptions:
         //      None.
         public double Weight(Node End) => (double)Math.Sqrt(Math.Pow(Math.Abs(this.X - End.X), 2) + Math.Pow(Math.Abs(this.Y - End.Y), 2));
-
-        public override string ToString() => $"ID: {ID} ; X: {X} ; Y: {Y}";
     }
 }

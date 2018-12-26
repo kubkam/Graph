@@ -8,19 +8,40 @@ using System;
 
 namespace AISDEProject
 {
+    //I truly recommend that you should read about Prim's algorithm before seeing code below.
     class Prim
     {
-        #region Properties
-
+        //
+        // Summary:
+        //      Gets list of all Nodes and their connected Edges contained in Graph.    
+        //
+        // Returns:
+        //      List of Edges and list of Nodes contained in the Graph.
         public MyGraph MyGraph { get; set; }
+
+        //
+        // Summary:
+        //      Gets list of all available Nodes contained in Prim's Algorithm.    
+        //
+        // Returns:
+        //      List of available Nodes contained in the Prim's Algorithm.
         public List<Node> Nodes { get; set; }
+
+        //
+        // Summary:
+        //      Gets list of all available Edges contained in Prim's Algorithm.    
+        //
+        // Returns:
+        //      List of available Edges contained in the Prim's Algorithm.
         public List<Edge> Edges { get; set; }
 
+        //
+        // Summary:
+        //     Gets list of all edges contained in the MST.
+        //
+        // Returns:
+        //     Edges contained in the MST(Minimum Spanning Tree) after Prim's algorithm.
         public List<Edge> MST { get; set; }
-
-        #endregion 
-
-        #region Constructors
 
         public Prim()
         {
@@ -34,41 +55,6 @@ namespace AISDEProject
             MyGraph = myGraph;
             Nodes = new List<Node>(myGraph.Nodes);
             Edges = new List<Edge>(myGraph.Edges);
-        }
-
-        #endregion
-
-        //
-        // Summary:
-        //      Searches the graph for neighbouring nodes.
-        //      When none are found, returns empty list.
-        //
-        // Parameters:
-        //   node:
-        //      The node to search its neighbouring nodes.
-        //
-        // Returns:
-        //      List of neighbouring nodes from node.
-        //
-        // Exceptions:
-        //      None.
-        public List<Node> NeighboursNodes(Node node)
-        {
-            List<Node> Neighbours = new List<Node>();
-            foreach (var edge in Edges)
-            {
-                if (edge.Begin == node && Nodes.Contains(edge.End))
-                {
-                    Neighbours.Add(edge.End);
-                }
-                if (edge.End == node && Nodes.Contains(edge.Begin))
-                {
-                    Neighbours.Add(edge.Begin);
-                }
-            }
-            Neighbours.Remove(node);
-
-            return Neighbours;
         }
 
         //
@@ -87,11 +73,9 @@ namespace AISDEProject
         //
         // Exceptions:
         //      None
-        Edge GetEdge(Node node1, Node node2)
-        {
-            return Edges.First(e => (e.Begin.Equals(node1) && e.End.Equals(node2)) || (e.Begin.Equals(node2) && e.End.Equals(node1)));
-        }
-
+        Edge GetEdge(Node node1, Node node2) => Edges.
+                First(e => (e.Begin.Equals(node1) && e.End.Equals(node2)) || (e.Begin.Equals(node2) && e.End.Equals(node1)));
+        
         //
         // Summary:
         //      Using Prim algorithm searches MST (Minimum Spanning Tree).
@@ -106,14 +90,14 @@ namespace AISDEProject
             var tree = new List<Node>();
             var queue = new List<Tuple<Node, Node, double>>();
 
-            var neighbours = new Dictionary<Node, Node>();
+            //var neighbours = new Dictionary<Node, Node>();
 
             var current = node;
             var previous = current;
 
             tree.Add(current);
 
-            foreach (var neighbour in NeighboursNodes(current))
+            foreach (var neighbour in MyGraph.NeighborsNodes(current))
             {
                 queue.Add(new Tuple<Node, Node, double>(current, neighbour, current.Weight(neighbour)));
             }
@@ -132,7 +116,7 @@ namespace AISDEProject
 
                 queue.RemoveAll(n => n.Item2.Equals(current));
 
-                foreach (var neighbour in NeighboursNodes(current))
+                foreach (var neighbour in MyGraph.NeighborsNodes(current))
                 {
                     queue.Add(new Tuple<Node, Node, double>(current, neighbour, current.Weight(neighbour)));
                 }

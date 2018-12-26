@@ -8,25 +8,46 @@ using System.Drawing.Imaging;
 
 namespace AISDEProject
 {
+    //I truly recommend that you should read about Dijkstra's algorithm before seeing code below.
     class Dijkstra
     {
-        #region Properties
-
+        //
+        // Summary:
+        //      Gets list of all Nodes and their connected Edges contained in Graph.    
+        //
+        // Returns:
+        //      List of Edges and list of Nodes contained in the Graph.
         public MyGraph MyGraph { get; set; }
+
+        //
+        // Summary:
+        //      Gets list of all available Nodes contained in Dijkstra's Algorithm.    
+        //
+        // Returns:
+        //      List of available Nodes contained in the Dijkstra's Algorithm.
         public List<Node> Nodes { get; set; }
+
+        //
+        // Summary:
+        //      Gets list of all available Edges contained in Dijkstra's Algorithm.    
+        //
+        // Returns:
+        //      List of available Edges contained in the Dijkstra's Algorithm.
         public List<Edge> Edges { get; set; }
-        public Node Start { get; set; } = new Node();
-        public Node End { get; set; } = new Node();
-        public List<Node> Neighbours { get; set; }
-        public List<Edge> DijkstraEdges { get; set; }
 
-        #endregion
-
-        #region Contructors
+        //
+        // Summary:
+        //     Gets list of all edges contained in the Shortest Path from one certain node to another after Dijkstra's algorithm.
+        //
+        // Returns:
+        //     Edges contained in the Shortest Path between two different nodes after Dijkstra's algorithm.
+        public List<Edge> DijkstraPath { get; set; }
 
         public Dijkstra()
         {
             MyGraph = new MyGraph();
+            Nodes = new List<Node>();
+            Edges = new List<Edge>();
         }
 
         public Dijkstra(MyGraph myGraph)
@@ -35,34 +56,13 @@ namespace AISDEProject
             Nodes = new List<Node>(myGraph.Nodes);
             Edges = new List<Edge>(myGraph.Edges);
         }
-
-        #endregion
         
-        public List<Node> NeighborsNodes(Node node)
-        {
-            Neighbours = new List<Node>();
-            foreach (var edge in Edges)
-            {
-                if (edge.Begin == node && Nodes.Contains(edge.End))
-                {
-                    Neighbours.Add(edge.End);
-                }
-                if (edge.End == node && Nodes.Contains(edge.Begin))
-                {
-                    Neighbours.Add(edge.Begin);
-                }
-            }
-            Neighbours.Remove(node);
-
-            return Neighbours;
-        }
-
         public void GetShortestPath(Node node)
         {
-            if (Neighbours.Count == 0)
+            if (MyGraph.NeighborsNodes(node).Count == 0)
                 return;
 
-            foreach (var neigh in NeighborsNodes(node))
+            foreach (var neigh in MyGraph.NeighborsNodes(node))
             {
                 var edge = MyGraph.Edges.First(x => (x.Begin.ID == neigh.ID && x.End.ID == node.ID) || (x.Begin.ID == node.ID && x.End.ID == neigh.ID));
 
@@ -77,7 +77,7 @@ namespace AISDEProject
 
         public void DijkstraAlgo(Node startNode, Node endNode)
         {
-            DijkstraEdges = new List<Edge>();
+            DijkstraPath = new List<Edge>();
             Nodes = new List<Node>(MyGraph.Nodes);
 
             var prioQueue = new List<Node>();
@@ -101,7 +101,7 @@ namespace AISDEProject
             {
                 Node next = prioQueue.First();
 
-                foreach (var node in NeighborsNodes(next))
+                foreach (var node in MyGraph.NeighborsNodes(next))
                 {
                     prioQueue.Add(node);
                 }
@@ -127,7 +127,7 @@ namespace AISDEProject
                     {
                         Visited.Add(node);
                         var edge = MyGraph.Edges.First(x => (x.Begin == tmp && x.End == node) || (x.End == tmp && x.Begin == node));
-                        DijkstraEdges.Add(edge);
+                        DijkstraPath.Add(edge);
                         tmp = node;
                     }
                 }
@@ -135,7 +135,7 @@ namespace AISDEProject
 
             foreach (var edge in MyGraph.Edges)
             {
-                if (DijkstraEdges.Contains(edge))
+                if (DijkstraPath.Contains(edge))
                     edge.Color = Microsoft.Msagl.Drawing.Color.Red;
             }
         }
@@ -173,7 +173,7 @@ namespace AISDEProject
 
             } while (!availableNodes.Contains(start));
 
-            Start = MyGraph.Nodes.First(x => x.ID == start);
+            Node Start = MyGraph.Nodes.First(x => x.ID == start);
 
             availableNodes.Remove(start);
 
@@ -192,11 +192,11 @@ namespace AISDEProject
 
             } while (!availableNodes.Contains(end));
 
-            End = MyGraph.Nodes.First(x => x.ID == end);
+            Node End = MyGraph.Nodes.First(x => x.ID == end);
 
             DijkstraAlgo(Start, End);
 
-            MyGraph.GraphMenu("Dijkstra", DijkstraEdges);
+            MyGraph.GraphMenu("Dijkstra", DijkstraPath);
 
         }
     }

@@ -8,13 +8,9 @@ namespace AISDEProject
 {
     class Menu
     {
-        #region Properties
-
         public Dijkstra Dijkstra { get; set; }
         public Prim Prim { get; set; }
         public MyGraph MyGraph { get; set; }
-
-        #endregion
 
         private readonly string menu = @"Chose one from following option:
         [1] Drag'n'Drop file to read Graph from File
@@ -23,16 +19,12 @@ namespace AISDEProject
         [4] Prim menu
         [0] Quit and close";
 
-        #region Contructors
-
         public Menu()
         {
             //MyGraph = new MyGraph();
             //Dijkstra = new Dijkstra();
             //Prim = new Prim();
         }
-
-        #endregion
 
         public void ContextMenu()
         {

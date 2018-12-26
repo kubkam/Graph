@@ -15,16 +15,10 @@ namespace AISDEProject
 {
     class MyGraph
     {
-        #region Public Properties
-
         public List<Node> Nodes { get; set; } 
         public List<Edge> Edges { get; set; }
         public int NumberOfNodes { get; set; }
         public int NumberOfEdges { get; set; }
-
-        #endregion
-
-        #region Constructor
 
         public MyGraph()
         {
@@ -33,10 +27,6 @@ namespace AISDEProject
             NumberOfEdges = 0;
             NumberOfNodes = 0;
         }
-
-        #endregion
-
-        #region Creating Graph from List of Edges
 
         public Graph CreateGraph(List<Edge> edges)
         {
@@ -71,10 +61,6 @@ namespace AISDEProject
             return graph;
         }
 
-        #endregion
-
-        #region Saving Graph as Image with given name as a parameter
-
         public void SaveGraphAsImage(string path, List<Edge> edges)
         {
             Graph tmp = CreateGraph(edges);
@@ -88,10 +74,6 @@ namespace AISDEProject
             renderer.Render(bitmap);
             bitmap.Save(path);
         }
-
-        #endregion
-
-        #region Reading Edges and Nodes from file to make Graph
 
         public void GraphFromFile(string Path)
         {
@@ -159,10 +141,6 @@ namespace AISDEProject
                 Console.WriteLine("Exception:" + e.Message);
             }
         }
-
-        #endregion
-
-        #region GraphMenu
 
         public void GraphMenu(string Name, List<Edge> edges)
         {
@@ -243,10 +221,6 @@ namespace AISDEProject
             }
         }
 
-        #endregion
-
-        public override string ToString() => $"Nodes: {Nodes}\n Edges: {Edges}";
-
         bool IsValidFilename(string testName)
         {
             Regex containsABadCharacterPath = new Regex("["
@@ -258,6 +232,39 @@ namespace AISDEProject
             if (containsABadCharacterPath.IsMatch(testName) || containsABadCharacterName.IsMatch(testName)) { return false; };
 
             return true;
+        }
+
+        //
+        // Summary:
+        //      Searches the graph for neighbouring nodes.
+        //      When none are found, returns empty list.
+        //
+        // Parameters:
+        //   node:
+        //      The node to search its neighbouring nodes.
+        //
+        // Returns:
+        //      List of neighbouring nodes from node.
+        //
+        // Exceptions:
+        //      None.
+        public List<Node> NeighborsNodes(Node node)
+        {
+            List<Node> Neighbours = new List<Node>();
+            foreach (var edge in Edges)
+            {
+                if (edge.Begin == node && Nodes.Contains(edge.End))
+                {
+                    Neighbours.Add(edge.End);
+                }
+                if (edge.End == node && Nodes.Contains(edge.Begin))
+                {
+                    Neighbours.Add(edge.Begin);
+                }
+            }
+            Neighbours.Remove(node);
+
+            return Neighbours;
         }
     }
 }
