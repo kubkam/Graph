@@ -8,41 +8,49 @@ using System.Drawing.Imaging;
 
 namespace AISDEProject
 {
-    //I truly recommend that you should read about Dijkstra's algorithm before seeing code below.
+    /// <summary>
+    /// This class describes Dijkstra's algorithm
+    /// I truly recommend that you should read about Dijkstra's algorithm before seeing code below.
+    /// </summary>
     class Dijkstra
     {
-        //
-        // Summary:
-        //      Gets list of all Nodes and their connected Edges contained in Graph.    
-        //
-        // Returns:
-        //      List of Edges and list of Nodes contained in the Graph.
+        /// <summary>
+        /// My Graph property.
+        /// </summary>
+        /// <value> List of Edges and Nodes contained in the Graph.</value>
+        /// <seealso cref="AISDEProject.MyGraph"/>
         public MyGraph MyGraph { get; set; }
 
-        //
-        // Summary:
-        //      Gets list of all available Nodes contained in Dijkstra's Algorithm.    
-        //
-        // Returns:
-        //      List of available Nodes contained in the Dijkstra's Algorithm.
+        /// <summary>
+        /// List of Nodes.
+        /// </summary>
+        /// <value>
+        /// List of available Nodes which can be used in Dijkstra's algorithm.
+        /// </value>
+        /// <seealso cref="AISDEProject.Node"/>
         public List<Node> Nodes { get; set; }
 
-        //
-        // Summary:
-        //      Gets list of all available Edges contained in Dijkstra's Algorithm.    
-        //
-        // Returns:
-        //      List of available Edges contained in the Dijkstra's Algorithm.
+        /// <summary>
+        /// List of Edges.
+        /// </summary>
+        /// <value>
+        /// List of available Edges which can be used in Dijkstra's algorithm.
+        /// </value>
+        /// <seealso cref="AISDEProject.Edge"/>
         public List<Edge> Edges { get; set; }
 
-        //
-        // Summary:
-        //     Gets list of all edges contained in the Shortest Path from one certain node to another after Dijkstra's algorithm.
-        //
-        // Returns:
-        //     Edges contained in the Shortest Path between two different nodes after Dijkstra's algorithm.
+        /// <summary>
+        /// Shortest path between two nodes in Graph.
+        /// </summary>
+        /// <value>
+        /// List of Edges contained in Shortest Path after Dijkstra's algorithm.
+        /// </value>
+        /// <seealso cref="AISDEProject.Dijkstra.DijkstraAlgo(Node, Node)"/>
         public List<Edge> DijkstraPath { get; set; }
 
+        /// <summary>
+        /// The default class constructor.
+        /// </summary>
         public Dijkstra()
         {
             MyGraph = new MyGraph();
@@ -50,13 +58,23 @@ namespace AISDEProject
             Edges = new List<Edge>();
         }
 
+        /// <summary>
+        /// The class constructor.
+        /// </summary>
+        /// <param name="myGraph">Nodes and Edges containedin the myGraph. 
+        /// <seealso cref="AISDEProject.MyGraph"/>
+        /// </param>
         public Dijkstra(MyGraph myGraph)
         {
             MyGraph = myGraph;
             Nodes = new List<Node>(myGraph.Nodes);
             Edges = new List<Edge>(myGraph.Edges);
         }
-        
+
+        /// <summary>
+        /// Change label in all neighboring nodes from parameter node as a shortest distance to.
+        /// </summary>
+        /// <param name="node">The Node class object to start algorithm to find shortest path to all neighboring nodes.</param>
         public void GetShortestPath(Node node)
         {
             if (MyGraph.NeighborsNodes(node).Count == 0)
@@ -75,6 +93,13 @@ namespace AISDEProject
             Nodes.Remove(node);
         }
 
+        /// <summary>
+        /// Method searches Shortest path from startNode to endNode from available edges from List of Edges using Dijkstra's algorithm.
+        /// </summary>
+        /// <see href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">HERE, algorithm on wikipedia.</see>
+        /// <param name="startNode">The Node class object which is a start node.</param>
+        /// <param name="endNode">The Node class object which is a end node.</param>
+        /// <seealso cref="AISDEProject.Node"/>
         public void DijkstraAlgo(Node startNode, Node endNode)
         {
             DijkstraPath = new List<Edge>();
@@ -140,6 +165,10 @@ namespace AISDEProject
             }
         }
 
+        /// <summary>
+        /// Initialize menu in console for generate result as image.
+        /// </summary>
+        /// <seealso cref="AISDEProject.MyGraph.GraphMenu(string, List{Edge})"/>
         public void DijkstraMenu()
         {
             int start = 0, end = 0;

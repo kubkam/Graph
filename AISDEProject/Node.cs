@@ -8,58 +8,69 @@ using Microsoft.Msagl.GraphViewerGdi;
 
 namespace AISDEProject
 {
+    /// <summary>
+    /// This class describes Nodes
+    /// </summary>
     public class Node
     {
-        //
-        // Summary:
-        //      Gets the number which represented node's ID.
-        //      It started from 1.
-        //
-        // Returns:
-        //      The number which represented node's ID.
+        /// <summary>
+        /// ID property.
+        /// </summary>
+        /// <value>
+        /// The number which represented node's ID. Starts from 1.
+        /// </value>
         public int ID { get; set; }
 
-        //
-        // Summary:
-        //      Gets the number which represented node's X (coordinate X in Cartesian coordinate system).
-        //
-        // Returns:
-        //      The number which represented node's X.
+        /// <summary>
+        /// Node's coordinate X
+        /// </summary>
+        /// <value>
+        /// The number which represented node's X (coordinate X in Cartesian coordinate system).
+        /// </value>
         public int X { get; set; }
 
-        //
-        // Summary:
-        //      Gets the number which represented node's Y (coordinate Y in Cartesian coordinate system).
-        //
-        // Returns:
-        //      The number which represented node's Y.
+        /// <summary>
+        /// Node's coordinate Y
+        /// </summary>
+        /// <value>
+        /// The number which represented node's Y (coordinate Y in Cartesian coordinate system).
+        /// </value>
         public int Y { get; set; }
 
-        //
-        // Summary:
-        //      Gets the number which represented Label.
-        //      It's an auxiliary variable which represented distance to particular Node
-        //
-        // Returns:
-        //      The number which represented Label, distance to particular Node.
+        /// <summary>
+        /// Label property
+        /// </summary>
+        /// <value>
+        /// The number which represented Label, distance to particular Node.
+        /// </value>
         public double Label { get; set; }
 
-        //
-        // Summary:
-        //      Gets the number which represented ID of a closet available Node which is connected with Edge.
-        //
-        // Returns:
-        //      The number which represented ID of a closet available Node which is connected with Edge.
+        /// <summary>
+        /// ID of closet Node
+        /// </summary>
+        /// <value>
+        /// The number which represented ID of a closet available Node which is connected with Edge.
+        /// </value>
         public int IDOfClosetNode { get; set; }
+
         //public int IsObligatory { get; set; }
 
-        public Node(int iD, int x, int y)
+        /// <summary>
+        /// The class constructor.
+        /// </summary>
+        /// <param name="id">ID of Node. <seealso cref="AISDEProject.Node.ID"/></param>
+        /// <param name="x">Coordinate X of Node. <seealso cref="AISDEProject.Node.X"/></param>
+        /// <param name="y">Coordinate Y of Node. <seealso cref="AISDEProject.Node.Y"/></param>
+        public Node(int id, int x, int y)
         {
-            ID = iD;
+            ID = id;
             X = x;
             Y = y;
         }
 
+        /// <summary>
+        /// The default class constructor.
+        /// </summary>
         public Node()
         {
             ID = 0;
@@ -67,21 +78,13 @@ namespace AISDEProject
             Y = 0;
         }
 
-        //
-        // Summary:
-        //      Weight is calculated from coordinates X and Y of Begin and End Node.
-        //      It is a Pythagoras form sqrt[(Begin.X - End.X)^2 + (Begin.Y - End.Y)^2].
-        //      This is auxiliary method to get Cost variable in Edge Class.
-        //
-        // Parameters:
-        //   End:
-        //      Node which is other node in Edge.
-        //
-        // Returns:
-        //      The number as a double which is distance from one Node to second Node.
-        //
-        // Exceptions:
-        //      None.
+        /// <summary>
+        /// Weight is calculated from coordinates X and Y of Begin and End Node.
+        /// It is a Pythagoras form sqrt[(Begin.X - End.X)^2 + (Begin.Y - End.Y)^2].
+        /// This is auxiliary method to get Cost variable in Edge Class.
+        /// </summary>
+        /// <param name="End">Second node in edge.</param>
+        /// <returns>Distance between this and End.</returns>
         public double Weight(Node End) => (double)Math.Sqrt(Math.Pow(Math.Abs(this.X - End.X), 2) + Math.Pow(Math.Abs(this.Y - End.Y), 2));
     }
 }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AISDEProject
 {
+    /// <summary>
+    /// This class describes Console Menu
+    /// </summary>
     class Menu
     {
         public Dijkstra Dijkstra { get; set; }

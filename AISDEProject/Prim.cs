@@ -8,41 +8,49 @@ using System;
 
 namespace AISDEProject
 {
-    //I truly recommend that you should read about Prim's algorithm before seeing code below.
+    /// <summary>
+    /// This class describes Prim's algorithm
+    /// I truly recommend that you should read about Prim's algorithm before seeing code below.
+    /// </summary>
     class Prim
     {
-        //
-        // Summary:
-        //      Gets list of all Nodes and their connected Edges contained in Graph.    
-        //
-        // Returns:
-        //      List of Edges and list of Nodes contained in the Graph.
+        /// <summary>
+        /// My Graph property.
+        /// </summary>
+        /// <value> List of Edges and Nodes contained in the Graph.</value>
+        /// <seealso cref="AISDEProject.MyGraph"/>
         public MyGraph MyGraph { get; set; }
 
-        //
-        // Summary:
-        //      Gets list of all available Nodes contained in Prim's Algorithm.    
-        //
-        // Returns:
-        //      List of available Nodes contained in the Prim's Algorithm.
+        /// <summary>
+        /// List of Nodes.
+        /// </summary>
+        /// <value>
+        /// List of available Nodes which can be used in Prim's algorithm.
+        /// </value>
+        /// <seealso cref="AISDEProject.Node"/>
         public List<Node> Nodes { get; set; }
 
-        //
-        // Summary:
-        //      Gets list of all available Edges contained in Prim's Algorithm.    
-        //
-        // Returns:
-        //      List of available Edges contained in the Prim's Algorithm.
+        /// <summary>
+        /// List of Edges.
+        /// </summary>
+        /// <value>
+        /// List of available Edges which can be used in Prim's algorithm.
+        /// </value>
+        /// <seealso cref="AISDEProject.Edge"/>
         public List<Edge> Edges { get; set; }
 
-        //
-        // Summary:
-        //     Gets list of all edges contained in the MST.
-        //
-        // Returns:
-        //     Edges contained in the MST(Minimum Spanning Tree) after Prim's algorithm.
+        /// <summary>
+        /// Minimum Spanning Tree in Graph.
+        /// </summary>
+        /// <value>
+        /// Edges contained in the MST(Minimum Spanning Tree) after Prim's algorithm.
+        /// </value>
+        /// <seealso cref="AISDEProject.Edge"/>
         public List<Edge> MST { get; set; }
 
+        /// <summary>
+        /// The default class constructor.
+        /// </summary>
         public Prim()
         {
             MyGraph = new MyGraph();
@@ -50,6 +58,12 @@ namespace AISDEProject
             Edges = new List<Edge>();
         }
 
+        /// <summary>
+        /// The class constructor.
+        /// </summary>
+        /// <param name="myGraph">Nodes and Edges containedin the myGraph. 
+        /// <seealso cref="AISDEProject.MyGraph"/>
+        /// </param>
         public Prim(MyGraph myGraph)
         {
             MyGraph = myGraph;
@@ -57,40 +71,29 @@ namespace AISDEProject
             Edges = new List<Edge>(myGraph.Edges);
         }
 
-        //
-        // Summary:
-        //      
-        //
-        // Parameters:
-        //   node1:
-        //      One of all available nodes from List of Nodes.
-        //
-        //   node2:
-        //      Second remaining node from List of Nodes.
-        //
-        // Returns:
-        //      The Edge which is one from following configuration node1->node2 or node2->node1.
-        //
-        // Exceptions:
-        //      None
+        /// <summary>
+        /// Get edge which is connection between two nodes.
+        /// </summary>
+        /// <param name="node1">One of all available nodes from List of Nodes.
+        /// <seealso cref="AISDEProject.Node"/>
+        /// </param>
+        /// <param name="node2">Second remaining node from List of Nodes.
+        /// <seealso cref="AISDEProject.Node"/>
+        /// </param>
+        /// <returns>Method returns Edge with these two nodes.<seealso cref="AISDEProject.Edge"/></returns>
         Edge GetEdge(Node node1, Node node2) => Edges.
                 First(e => (e.Begin.Equals(node1) && e.End.Equals(node2)) || (e.Begin.Equals(node2) && e.End.Equals(node1)));
-        
-        //
-        // Summary:
-        //      Using Prim algorithm searches MST (Minimum Spanning Tree).
-        //      For more just google Prim algorithm
-        //
-        // Parameters:
-        //   node:
-        //      The Node class object to start algorithm.
+
+        /// <summary>
+        /// Method searches MST (Minimum Spanning Tree) as available edges from List of Edge using Prim's algorithm.
+        /// <see href="https://en.wikipedia.org/wiki/Prim%27s_algorithm">HERE, algorithm on wikipedia.</see>
+        /// </summary>
+        /// <param name="node">The Node class object to start algorithm. <seealso cref="AISDEProject.Node"/></param>
         public void PrimAlgo(Node node)
         {
             MST = new List<Edge>();
             var tree = new List<Node>();
             var queue = new List<Tuple<Node, Node, double>>();
-
-            //var neighbours = new Dictionary<Node, Node>();
 
             var current = node;
             var previous = current;
@@ -135,10 +138,10 @@ namespace AISDEProject
             }
         }
 
-        //
-        // Summary:
-        //     Initialize menu in console for generate result as image.
-        //      For more, go to GraphMenu method in Graph Class.
+        /// <summary>
+        /// Initialize menu in console for generate result as image.
+        /// </summary>
+        /// <seealso cref="AISDEProject.MyGraph.GraphMenu(string, List{Edge})"/>
         public void PrimMenu()
         {
             if (MyGraph.Nodes.Count == 0 || MyGraph.Nodes == null || MyGraph.Edges.Count == 0 || MyGraph.Edges == null)

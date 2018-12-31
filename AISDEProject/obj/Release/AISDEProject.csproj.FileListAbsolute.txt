@@ -1,0 +1,13 @@
+C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Release\AISDEProject.exe.config
+C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Release\AISDEProject.exe
+C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Release\AISDEProject.pdb
+C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Release\Microsoft.Msagl.dll
+C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Release\Microsoft.Msagl.Drawing.dll
+C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Release\Microsoft.Msagl.GraphViewerGdi.dll
+C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Release\Microsoft.Msagl.xml
+C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Release\Microsoft.Msagl.Drawing.xml
+C:\Users\Kuba\Desktop\Graph\AISDEProject\bin\Release\Microsoft.Msagl.GraphViewerGdi.xml
+C:\Users\Kuba\Desktop\Graph\AISDEProject\obj\Release\AISDEProject.csproj.CoreCompileInputs.cache
+C:\Users\Kuba\Desktop\Graph\AISDEProject\obj\Release\AISDEProject.csproj.CopyComplete
+C:\Users\Kuba\Desktop\Graph\AISDEProject\obj\Release\AISDEProject.exe
+C:\Users\Kuba\Desktop\Graph\AISDEProject\obj\Release\AISDEProject.pdb

@@ -13,6 +13,9 @@ using System.Text.RegularExpressions;
 
 namespace AISDEProject
 {
+    /// <summary>
+    /// This class describes Graph
+    /// </summary>
     class MyGraph
     {
         public List<Node> Nodes { get; set; } 
