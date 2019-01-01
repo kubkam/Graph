@@ -61,6 +61,11 @@ namespace AISDEProject
 
                     case 2:
                         Console.Clear();
+                        if (MyGraph == null)
+                        {
+                            Console.WriteLine("Something went wrong. Try to upload file one more time.\n");
+                            break;
+                        }
                         MyGraph.GraphMenu("Graph", null);
                         break;
 
