@@ -145,82 +145,20 @@ namespace AISDEProject
             }
         }
 
-        public void GraphMenu(string Name, List<Edge> edges)
+        public void GraphMenu(string name, List<Edge> edges)
         {
-            
-            string filename = null;
-            string fullpath = null;
-
             if (Nodes == null || Edges == null || Nodes.Count() == 0 || Edges.Count() == 0)
                 Console.WriteLine("Something went wrong with reading from file.\nTry upload your file one more time.\nI returned you to main menu.\n");
             else
             {
+                string tmp = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\"));
+                string fileName = $"yourFiles\\{name}.png";
 
-                Console.WriteLine($"\nWelcome to {Name} Menu\n");
+                string fullPath = String.Concat(tmp, fileName);
 
-                do
-                {
-                    Console.WriteLine($"Please enter filename. I will save {Name} as picture");
-                    try
-                    {
-                        filename = Console.ReadLine();
-                    }
-                    catch (Exception e)
-                    {
+                SaveGraphAsImage(fullPath, edges);
 
-                        Console.WriteLine(e.Message);
-                    }
-
-                } while (filename != null && !IsValidFilename(filename));
-
-                int choice = -1;
-                
-                do
-                {
-                    Console.WriteLine(@"Now you must choose file format:
-        [1] JPG
-        [2] PNG
-        [3] GIF
-        [0] I changed my mind. I want to quit");
-                
-                try
-                {
-                    Console.Write("\nYour choice is?: ");
-                    choice = int.Parse(Console.ReadLine());
-
-                }
-                catch (Exception e)
-                {
-
-                    Console.WriteLine(e.Message);
-                }
-                
-                    switch (choice)
-                    {
-                        case 1:
-                            fullpath = String.Concat(filename, ".jpg");
-                            break;
-
-                        case 2:
-                            fullpath = String.Concat(filename, ".png");
-                            break;
-
-                        case 3:
-                            fullpath = String.Concat(filename, ".gif");
-                            break;
-
-                        case 0:
-                            Console.WriteLine($"You quit {Name} menu");
-                            return;
-
-                        default:
-                            Console.Clear();
-                            Console.WriteLine("Wrong option.\n");
-                            break;
-                    }
-                } while ((choice != 1) && (choice != 2) && (choice != 3));
-
-                SaveGraphAsImage(fullpath, edges);
+                Console.WriteLine($"Generated graph was saved in yourFiles folder successfully. Image of your graph has name {name}.png");
             }
         }
 

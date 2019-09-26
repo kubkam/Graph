@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AISDEProject
 {
@@ -16,10 +19,10 @@ namespace AISDEProject
         public MyGraph MyGraph { get; set; }
 
         private readonly string menu = @"Chose one from following option:
-        [1] Drag'n'Drop file to read Graph from File
-        [2] Graph menu
-        [3] Dijkstra menu
-        [4] Prim menu
+        [1] Read file network.txt from yourFiles folder. If you want to change it, you should go to yourFiles folder and change network.txt
+        [2] Graph menu <- Generate Graph from network.txt file
+        [3] Dijkstra menu <- Generate Graph and Shortest Path from 2 nodes (Dijkstra's algorithm)
+        [4] Prim menu <- Generate Graph and Minimum Spanning Tree from random node (Prim's algorithm)
         [0] Quit and close";
 
         public Menu()
@@ -31,8 +34,6 @@ namespace AISDEProject
 
         public void ContextMenu()
         {
-            Console.WriteLine(@"Welcome to our project :)");
-
             do
             {
                 int choice = -1;
@@ -53,17 +54,17 @@ namespace AISDEProject
                 switch (choice)
                 {
                     case 1:
-                        Console.WriteLine(@"Drag'n'Drop your file, paste full path of your file or write your filename, which is in bin\Debug folder of your project:");
-                        string path = Console.ReadLine();
+                        string tmp = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\"));
+                        string fullPath = String.Concat(tmp, @"yourFiles\network.txt");
                         MyGraph = new MyGraph();
-                        MyGraph.GraphFromFile(path);
+                        MyGraph.GraphFromFile(fullPath);
                         break;
 
                     case 2:
                         Console.Clear();
                         if (MyGraph == null)
                         {
-                            Console.WriteLine("Something went wrong. Try to upload file one more time.\n");
+                            Console.WriteLine("Something went wrong. Try again or/and check text file (network.txt) in yourFiles folder.\n");
                             break;
                         }
                         MyGraph.GraphMenu("Graph", null);

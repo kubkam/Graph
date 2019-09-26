@@ -154,7 +154,7 @@ namespace AISDEProject
 
             int RandomID = rnd.Next(1, MyGraph.Nodes.Count);
 
-            Console.WriteLine($"Youe Random ID: {RandomID}");
+            Console.WriteLine($"Your Random ID: {RandomID}");
 
             Node Start = MyGraph.Nodes.First(x => x.ID == RandomID);
 

@@ -3,7 +3,7 @@
 # liczba wezlow, wezly numerowane sa od 1
 Nodes = 9
 # kazdy wezel to trojka (identyfikator, wspolrzedna X, wspolrzedna Y)
-1 0 50
+1 0 51
 2 30 56
 3 45 32
 4 50 23
