@@ -1,7 +1,7 @@
 Graph Generator in C#
 =================
 
-Student project for Algorithms & Data Structures. There are two implemented algorithms: Dijkstra and Prim.
+Student project for Algorithms & Data Structures. There are two implemented algorithms: Dijkstra and Prim. It is console application written in C# and .NET.
 
 ### External libraries
 
